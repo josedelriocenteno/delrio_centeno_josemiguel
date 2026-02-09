@@ -1,0 +1,22 @@
+# Logs
+*.log
+
+# Archivos generados
+*.class
+*.jar
+*.war
+*.ear
+
+# Configuraciones locales
+/settings.xml
+
+# Maven wrapper
+/.mvn/wrapper/maven-wrapper.properties
+
+# IDEs
+*.ipr
+*.iws
+*.vscode/
+.idea/
+nbproject/private/
+*.iml
