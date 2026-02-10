@@ -1,6 +1,6 @@
-ackage pagos.dominio;
+package pagos.dominio;
 
-import pagos.cuentas.Cuenta;
+import pagos.cuentas.CuentaBizum;
 import pagos.excepciones.CantidadIncorrectaException;
 import pagos.excepciones.SaldoInsuficienteException;
 import pagos.util.GeneradorComprobantes;
@@ -8,31 +8,36 @@ import pagos.validaciones.ValidadorPago;
 
 public class PagoBizum implements MetodoPago {
 
-    private String telefono;
+    private CuentaBizum cuentaBizum;
     private String comprobante;
 
-    public PagoBizum(String telefono) {
-        ValidadorPago.validarTelefonoBizum(telefono);
-        this.telefono = telefono;
+    public PagoBizum(CuentaBizum cuentaBizum) {
+        if (cuentaBizum == null) {
+            throw new IllegalArgumentException("Debe proporcionar una CuentaBizum");
+        }
+        this.cuentaBizum = cuentaBizum;
     }
 
     @Override
-    public void pagar(Cuenta cuentaOrigen, double cantidad)
-            throws CantidadIncorrectaException, SaldoInsuficienteException {
-
+    public void pagar(double cantidad) throws CantidadIncorrectaException, SaldoInsuficienteException {
         ValidadorPago.validarCantidad(cantidad);
-        cuentaOrigen.retirar(cantidad); // Puede lanzar SaldoInsuficienteException
+        cuentaBizum.retirar(cantidad);  // Solo CuentaBizum válida
 
         comprobante = GeneradorComprobantes.generar(
-                "BIZUM",
-                cantidad,
-                cuentaOrigen.getDescripcion(),
-                cuentaOrigen.getSaldo()
+            "BIZUM",
+            cantidad,
+            cuentaBizum.getDescripcionCompleta(),
+            cuentaBizum.getSaldo()
         );
     }
 
     @Override
     public String obtenerComprobante() {
         return comprobante;
+    }
+
+    @Override
+    public String getDescripcionMetodo() {
+        return "Pago Bizum desde " + cuentaBizum.getTelefono();
     }
 }

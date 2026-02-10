@@ -1,8 +1,6 @@
 package pagos.dominio;
 
-import pagos.cuentas.Cuenta;
 import pagos.excepciones.CantidadIncorrectaException;
-import pagos.excepciones.SaldoInsuficienteException;
 import pagos.util.GeneradorComprobantes;
 import pagos.validaciones.ValidadorPago;
 
@@ -18,25 +16,21 @@ public class PagoTarjeta implements MetodoPago {
     }
 
     @Override
-    public void pagar(Cuenta cuentaOrigen, double cantidad)
-            throws CantidadIncorrectaException, SaldoInsuficienteException {
-
+    public void pagar(double cantidad) throws CantidadIncorrectaException {
         ValidadorPago.validarCantidad(cantidad);
-        cuentaOrigen.retirar(cantidad);
+        // No hay cuenta: pago directo al banco emisor (sin SaldoInsuficiente)
 
-        String origen = "Tarjeta de " + titular + " - ****"
-                + numeroTarjeta.substring(numeroTarjeta.length() - 4);
-
-        comprobante = GeneradorComprobantes.generar(
-                "TARJETA",
-                cantidad,
-                origen,
-                cuentaOrigen.getSaldo()
-        );
+        String origen = "Tarjeta " + titular + " - ****" + numeroTarjeta.substring(numeroTarjeta.length() - 4);
+        comprobante = GeneradorComprobantes.generar("TARJETA", cantidad, origen, 0.0);
     }
 
     @Override
     public String obtenerComprobante() {
         return comprobante;
+    }
+
+    @Override
+    public String getDescripcionMetodo() {
+        return "Pago Tarjeta " + titular;
     }
 }
