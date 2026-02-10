@@ -1,6 +1,5 @@
 package pagos.dominio;
 
-import pagos.cuentas.Cuenta;
 import pagos.excepciones.CantidadIncorrectaException;
 
 /**
@@ -9,24 +8,24 @@ import pagos.excepciones.CantidadIncorrectaException;
  */
 public class PagoTarjeta implements MetodoPago {
 
-    private Cuenta cuenta;
+    private String numeroTarjeta;
+    private String titular;
     private String comprobante;
 
-    public PagoTarjeta(Cuenta cuenta) {
-        this.cuenta = cuenta;
+    public PagoTarjeta(String numeroTarjeta, String titular) {
+        this.numeroTarjeta = numeroTarjeta;
+        this.titular = titular;
     }
 
     @Override
     public void pagar(double cantidad) throws CantidadIncorrectaException {
         if (cantidad <= 0) {
-            throw new CantidadIncorrectaException(
-                    "La cantidad a pagar con tarjeta debe ser mayor que 0"
-            );
+            throw new CantidadIncorrectaException("Cantidad no válida");
         }
 
-        // Simulación del pago
-        comprobante = "Pago de " + cantidad + "€ realizado mediante TARJETA\n"
-                    + "Origen: " + cuenta.getDescripcion();
+        comprobante = "Pago con TARJETA de " + cantidad + " EUR - Titular: "
+                + titular + " - ****"
+                + numeroTarjeta.substring(numeroTarjeta.length() - 4);
     }
 
     @Override

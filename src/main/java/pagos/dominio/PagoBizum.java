@@ -9,24 +9,20 @@ import pagos.excepciones.CantidadIncorrectaException;
  */
 public class PagoBizum implements MetodoPago {
 
-    private Cuenta cuenta;
+    private String telefono;
     private String comprobante;
 
-    public PagoBizum(Cuenta cuenta) {
-        this.cuenta = cuenta;
+    public PagoBizum(String telefono) {
+        this.telefono = telefono;
     }
 
     @Override
     public void pagar(double cantidad) throws CantidadIncorrectaException {
         if (cantidad <= 0) {
-            throw new CantidadIncorrectaException(
-                    "La cantidad a pagar por Bizum debe ser mayor que 0"
-            );
+            throw new CantidadIncorrectaException("Cantidad no válida");
         }
 
-        // Simulación del pago
-        comprobante = "Pago de " + cantidad + "€ realizado mediante BIZUM\n"
-                    + "Origen: " + cuenta.getDescripcion();
+        comprobante = "Pago con BIZUM de " + cantidad + " EUR - Teléfono: " + telefono;
     }
 
     @Override

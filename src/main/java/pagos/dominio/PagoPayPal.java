@@ -7,26 +7,23 @@ import pagos.excepciones.CantidadIncorrectaException;
  *
  * @author delcenjo
  */
+
 public class PagoPayPal implements MetodoPago {
 
-    private Cuenta cuenta;
+    private String email;
     private String comprobante;
 
-    public PagoPayPal(Cuenta cuenta) {
-        this.cuenta = cuenta;
+    public PagoPayPal(String email) {
+        this.email =email;
     }
 
     @Override
     public void pagar(double cantidad) throws CantidadIncorrectaException {
         if (cantidad <= 0) {
-            throw new CantidadIncorrectaException(
-                    "La cantidad a pagar por PayPal debe ser mayor que 0"
-            );
+            throw new CantidadIncorrectaException("Cantidad no válida");
         }
 
-        // Simulación del pago
-        comprobante = "Pago de " + cantidad + "€ realizado mediante PAYPAL\n"
-                    + "Origen: " + cuenta.getDescripcion();
+        comprobante = "Pago con PAYPAL de " + cantidad + " EUR - Cuenta: " + email;
     }
 
     @Override

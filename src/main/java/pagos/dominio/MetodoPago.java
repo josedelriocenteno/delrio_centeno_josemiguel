@@ -11,6 +11,8 @@ import pagos.excepciones.CantidadIncorrectaException;
  * @author delcenjo
  */
 public interface MetodoPago {
+
     void pagar(double cantidad) throws CantidadIncorrectaException;
+
     String obtenerComprobante();
 }
