@@ -2,11 +2,9 @@ package pagos.dominio;
 
 import pagos.cuentas.Cuenta;
 import pagos.excepciones.CantidadIncorrectaException;
-
-/**
- *
- * @author delcenjo
- */
+import pagos.excepciones.SaldoInsuficienteException;
+import pagos.util.GeneradorComprobantes;
+import pagos.validaciones.ValidadorPago;
 
 public class PagoPayPal implements MetodoPago {
 
@@ -14,16 +12,23 @@ public class PagoPayPal implements MetodoPago {
     private String comprobante;
 
     public PagoPayPal(String email) {
-        this.email =email;
+        ValidadorPago.validarEmail(email);
+        this.email = email;
     }
 
     @Override
-    public void pagar(double cantidad) throws CantidadIncorrectaException {
-        if (cantidad <= 0) {
-            throw new CantidadIncorrectaException("Cantidad no válida");
-        }
+    public void pagar(Cuenta cuentaOrigen, double cantidad)
+            throws CantidadIncorrectaException, SaldoInsuficienteException {
 
-        comprobante = "Pago con PAYPAL de " + cantidad + " EUR - Cuenta: " + email;
+        ValidadorPago.validarCantidad(cantidad);
+        cuentaOrigen.retirar(cantidad);
+
+        comprobante = GeneradorComprobantes.generar(
+                "PAYPAL",
+                cantidad,
+                cuentaOrigen.getDescripcion(),
+                cuentaOrigen.getSaldo()
+        );
     }
 
     @Override

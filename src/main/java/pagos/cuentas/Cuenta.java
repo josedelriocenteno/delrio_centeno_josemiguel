@@ -2,10 +2,6 @@ package pagos.cuentas;
 
 import pagos.excepciones.SaldoInsuficienteException;
 
-/**
- *
- * @author delcenjo
- */
 public abstract class Cuenta {
 
     protected String titular;
@@ -14,6 +10,14 @@ public abstract class Cuenta {
     public Cuenta(String titular, double saldo) {
         this.titular = titular;
         this.saldo = saldo;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public String getTitular() {
+        return titular;
     }
 
     public void retirar(double cantidad) throws SaldoInsuficienteException {
@@ -27,4 +31,8 @@ public abstract class Cuenta {
     }
 
     public abstract String getDescripcion();
+
+    public String getDescripcionCompleta() {
+        return getDescripcion() + " - Saldo: " + saldo + " EUR";
+    }
 }

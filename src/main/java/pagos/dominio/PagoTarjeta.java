@@ -1,11 +1,11 @@
 package pagos.dominio;
 
+import pagos.cuentas.Cuenta;
 import pagos.excepciones.CantidadIncorrectaException;
+import pagos.excepciones.SaldoInsuficienteException;
+import pagos.util.GeneradorComprobantes;
+import pagos.validaciones.ValidadorPago;
 
-/**
- *
- * @author delcenjo
- */
 public class PagoTarjeta implements MetodoPago {
 
     private String numeroTarjeta;
@@ -18,14 +18,21 @@ public class PagoTarjeta implements MetodoPago {
     }
 
     @Override
-    public void pagar(double cantidad) throws CantidadIncorrectaException {
-        if (cantidad <= 0) {
-            throw new CantidadIncorrectaException("Cantidad no válida");
-        }
+    public void pagar(Cuenta cuentaOrigen, double cantidad)
+            throws CantidadIncorrectaException, SaldoInsuficienteException {
 
-        comprobante = "Pago con TARJETA de " + cantidad + " EUR - Titular: "
-                + titular + " - ****"
+        ValidadorPago.validarCantidad(cantidad);
+        cuentaOrigen.retirar(cantidad);
+
+        String origen = "Tarjeta de " + titular + " - ****"
                 + numeroTarjeta.substring(numeroTarjeta.length() - 4);
+
+        comprobante = GeneradorComprobantes.generar(
+                "TARJETA",
+                cantidad,
+                origen,
+                cuentaOrigen.getSaldo()
+        );
     }
 
     @Override

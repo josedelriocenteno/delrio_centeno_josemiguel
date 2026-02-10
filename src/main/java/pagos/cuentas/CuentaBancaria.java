@@ -1,9 +1,5 @@
 package pagos.cuentas;
 
-/**
- *
- * @author delcenjo
- */
 public class CuentaBancaria extends Cuenta {
 
     private String iban;
