@@ -1,0 +1,27 @@
+pagos
+├── app
+│   └── Main.java              ← consola / luego JFrame
+│
+├── dominio                    ← lógica de negocio
+│   ├── MetodoPago.java
+│   ├── PagoTarjeta.java
+│   ├── PagoPayPal.java
+│   └── PagoBizum.java
+│
+├── cuentas                    ← de dónde sale el dinero
+│   ├── Cuenta.java            ← abstracta
+│   ├── CuentaBancaria.java
+│   ├── CuentaPayPal.java
+│   └── CuentaBizum.java
+│
+├── excepciones                ← errores controlados
+│   ├── CantidadIncorrectaException.java
+│   ├── SaldoInsuficienteException.java
+│   └── MetodoPagoNoValidoException.java
+│
+├── validaciones   (opcional)
+│   └── ValidadorPago.java
+│
+└── util   (opcional, si crece)
+    └── GeneradorComprobantes.java
+
