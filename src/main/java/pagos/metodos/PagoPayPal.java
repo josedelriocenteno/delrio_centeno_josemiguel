@@ -1,12 +1,20 @@
-package pagos.dominio;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package pagos.metodos;
 
 import pagos.cuentas.Cuenta;
 import pagos.cuentas.CuentaPayPal;
 import pagos.excepciones.CantidadIncorrectaException;
 import pagos.excepciones.SaldoInsuficienteException;
-import pagos.util.GeneradorComprobantes;
+import pagos.generador.GeneradorComprobantes;
 import pagos.validaciones.ValidadorPago;
 
+/**
+ *
+ * @author delcenjo
+ */
 public class PagoPayPal implements MetodoPago {
 
     private final String emailPayPal;
@@ -18,33 +26,17 @@ public class PagoPayPal implements MetodoPago {
     }
 
     @Override
-    public void pagar(double cantidad, Cuenta cuentaOrigen)
-            throws CantidadIncorrectaException, SaldoInsuficienteException {
-
-        if (!soportaCuenta(cuentaOrigen)) {
-            throw new CantidadIncorrectaException("Cuenta no compatible con PagoPayPal");
-        }
-
-        ValidadorPago.validarCantidad(cantidad);
-
+    public void pagar(double cantidad, Cuenta cuentaOrigen) throws CantidadIncorrectaException, SaldoInsuficienteException {
+        if (!soportaCuenta(cuentaOrigen)) throw new CantidadIncorrectaException("Cuenta no compatible con PagoPayPal");
         CuentaPayPal cuenta = (CuentaPayPal) cuentaOrigen;
-
-        // Delegamos validaciones de saldo y límites a la propia cuenta
         cuenta.retirar(cantidad);
-
-        this.comprobante = GeneradorComprobantes.generar(
-                "💳 PAYPAL",
-                cantidad,
-                cuenta.getDescripcionCompleta(),
-                cuenta.getSaldo()
-        );
+        comprobante = GeneradorComprobantes.generar("PAYPAL", cantidad, cuenta.getDescripcionCompleta(), cuenta.getSaldo());
     }
 
     @Override
     public String obtenerComprobante() {
-        return comprobante != null
-                ? comprobante
-                : "No se ha realizado ningún pago PayPal aún.";
+        if (comprobante == null) return "No se ha realizado ningún pago PayPal aún.";
+        return comprobante;
     }
 
     @Override
@@ -54,8 +46,7 @@ public class PagoPayPal implements MetodoPago {
 
     @Override
     public boolean soportaCuenta(Cuenta cuenta) {
-        return cuenta instanceof CuentaPayPal &&
-               ((CuentaPayPal) cuenta).getEmail().equalsIgnoreCase(this.emailPayPal);
+        return cuenta instanceof CuentaPayPal && ((CuentaPayPal) cuenta).getEmail().equalsIgnoreCase(emailPayPal);
     }
 
     public String getEmailPayPal() {
