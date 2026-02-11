@@ -25,3 +25,54 @@ pagos
 └── util   (opcional, si crece)
     └── GeneradorComprobantes.java
 
+
+📱 5 PANTALLAS (orden exacto):
+
+    INICIO
+
+        Saldo total
+
+        Lista cuentas (resumida)
+
+        Botones: [PAGAR] [GESTIÓN CUENTAS]
+
+    SELECCIÓN MÉTODO
+
+        Cantidad a pagar (input editable)
+
+        Lista métodos disponibles (Bizum/PayPal/Tarjeta)
+
+        Botón: [SIGUIENTE]
+
+    SELECCIÓN CUENTA
+
+        Método elegido arriba
+
+        Lista cuentas compatibles con ese método
+
+        Botón: [CONFIRMAR PAGO]
+
+    CONFIRMACIÓN
+
+        Resumen: Método + Cuenta + Cantidad
+
+        Botones: [Cancelar] [PAGAR]
+
+    RESULTADO
+
+        Comprobante completo
+
+        Nuevo saldo
+
+        Botones: [Nuevo pago] [Inicio]
+
+BONUS (6ª pantalla):
+
+GESTIÓN CUENTAS
+
+    Lista todas cuentas
+
+    Botones: [✏️Editar] [🗑️Borrar] [+Añadir]
+
+Orden navegación:
+1→2→3→4→5→1 (ciclo)

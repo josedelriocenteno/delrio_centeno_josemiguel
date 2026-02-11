@@ -1,5 +1,6 @@
 package pagos.dominio;
 
+import pagos.cuentas.Cuenta;
 import pagos.cuentas.CuentaBizum;
 import pagos.excepciones.CantidadIncorrectaException;
 import pagos.excepciones.SaldoInsuficienteException;
@@ -8,36 +9,56 @@ import pagos.validaciones.ValidadorPago;
 
 public class PagoBizum implements MetodoPago {
 
-    private CuentaBizum cuentaBizum;
+    private final String telefonoBizum;
     private String comprobante;
 
-    public PagoBizum(CuentaBizum cuentaBizum) {
-        if (cuentaBizum == null) {
-            throw new IllegalArgumentException("Debe proporcionar una CuentaBizum");
-        }
-        this.cuentaBizum = cuentaBizum;
+    public PagoBizum(String telefonoBizum) throws CantidadIncorrectaException {
+        ValidadorPago.validarTelefonoBizum(telefonoBizum);
+        this.telefonoBizum = telefonoBizum;
     }
 
     @Override
-    public void pagar(double cantidad) throws CantidadIncorrectaException, SaldoInsuficienteException {
-        ValidadorPago.validarCantidad(cantidad);
-        cuentaBizum.retirar(cantidad);  // Solo CuentaBizum válida
+    public void pagar(double cantidad, Cuenta cuentaOrigen)
+            throws CantidadIncorrectaException, SaldoInsuficienteException {
+        
+        if (!soportaCuenta(cuentaOrigen)) {
+            throw new CantidadIncorrectaException("Cuenta no compatible con PagoBizum");
+        }
 
-        comprobante = GeneradorComprobantes.generar(
-            "BIZUM",
-            cantidad,
-            cuentaBizum.getDescripcionCompleta(),
-            cuentaBizum.getSaldo()
+        ValidadorPago.validarCantidad(cantidad);
+
+        CuentaBizum cuenta = (CuentaBizum) cuentaOrigen;
+
+        // Delegamos validaciones de límite y saldo a la propia cuenta
+        cuenta.retirar(cantidad);
+
+        this.comprobante = GeneradorComprobantes.generar(
+                "📱 BIZUM",
+                cantidad,
+                cuenta.getDescripcionCompleta(),
+                cuenta.getSaldo()
         );
     }
 
     @Override
     public String obtenerComprobante() {
-        return comprobante;
+        return comprobante != null
+                ? comprobante
+                : "No se ha realizado ningún pago Bizum aún.";
     }
 
     @Override
     public String getDescripcionMetodo() {
-        return "Pago Bizum desde " + cuentaBizum.getTelefono();
+        return "Bizum: " + telefonoBizum;
+    }
+
+    @Override
+    public boolean soportaCuenta(Cuenta cuenta) {
+        return cuenta instanceof CuentaBizum
+                && ((CuentaBizum) cuenta).getTelefono().equals(this.telefonoBizum);
+    }
+
+    public String getTelefonoBizum() {
+        return telefonoBizum;
     }
 }
