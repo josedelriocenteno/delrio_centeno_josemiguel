@@ -22,7 +22,7 @@ public abstract class Cuenta {
         if (idCuenta == null || idCuenta.trim().isEmpty()) throw new IllegalArgumentException("ID cuenta requerido");
         if (saldoInicial < 0) throw new IllegalArgumentException("Límite diario inválido");
         this.idCuenta = idCuenta.trim();
-        this.titular = titular != null ? titular.trim() : "";
+        this.titular = titular.trim();
         this.saldo = saldoInicial;
         this.limiteDiario = limiteDiario;
     }
@@ -51,11 +51,8 @@ public abstract class Cuenta {
     public String getTitular() { return titular; }
 
     public void setTitular(String titular) {
-        if (titular == null) {
-            this.titular = "";
-        } else {
-            this.titular = titular.trim();
-        }
+        if (titular == null) this.titular = "";
+        else this.titular = titular.trim();
     }
 
     public double getSaldo() { return saldo; }

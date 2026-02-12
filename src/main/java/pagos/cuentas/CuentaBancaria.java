@@ -22,7 +22,7 @@ public class CuentaBancaria extends Cuenta {
         super(idCuenta, titular, saldoInicial, 10000.0);
         if (iban == null) throw new CantidadIncorrectaException("IBAN no puede ser nulo");
         String ibanLimpio = iban.replaceAll("\\s+", "").toUpperCase();
-        if (!ValidadorPago.esIbanValido(ibanLimpio)) throw new CantidadIncorrectaException("IBAN inválido (formato: ESXX XXXX XXXX XXXX XXXX XX): " + ibanLimpio);
+        if (!ValidadorPago.esIbanValido(ibanLimpio)) throw new CantidadIncorrectaException("IBAN invslido (formato: ESXX XXXX XXXX XXXX XXXX XX): " + ibanLimpio);
         this.iban = ibanLimpio;
     }
 
@@ -33,7 +33,7 @@ public class CuentaBancaria extends Cuenta {
 
     @Override
     public String getDescripcionCompleta() {
-        return "🏦 " + titular + " | " + idCuenta + " | IBAN " + getIbanParcial() + " | " + saldo + "€";
+        return titular + " | " + idCuenta + " | IBAN " + getIbanParcial() + " | " + saldo + "€";
     }
 
     @Override

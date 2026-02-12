@@ -25,7 +25,7 @@ public class CuentaBizum extends Cuenta {
 
     @Override
     public String getDescripcionCompleta() {
-        return "📱 " + titular + " | Bizum " + telefono + " | " + saldo + "€";
+        return titular + " | Bizum " + telefono + " | " + saldo + "€";
     }
 
     @Override

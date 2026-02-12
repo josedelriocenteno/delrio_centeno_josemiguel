@@ -34,7 +34,7 @@ public class AppGUI extends javax.swing.JFrame {
         comboMetodo.addItem("PayPal");
         comboMetodo.addItem("Tarjeta");
         comboMetodo.setSelectedIndex(-1);
-
+        
         comboCuenta.removeAllItems();
         comboCuenta.addItem(banco);
         comboCuenta.addItem(bizum1);

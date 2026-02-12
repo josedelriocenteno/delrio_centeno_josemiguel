@@ -19,7 +19,7 @@ public class PagoTarjeta implements MetodoPago {
 
     private final String numeroTarjeta;
     private final String titular;
-    private final CuentaBancaria cuentaBanco; // Cuenta asociada a la tarjeta
+    private final CuentaBancaria cuentaBanco;
     private String comprobante;
 
     public PagoTarjeta(String numeroTarjeta, String titular, CuentaBancaria cuentaBanco) throws CantidadIncorrectaException {

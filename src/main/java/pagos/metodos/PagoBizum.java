@@ -27,13 +27,10 @@ public class PagoBizum implements MetodoPago {
 
     @Override
     public void pagar(double cantidad, Cuenta cuentaOrigen) throws CantidadIncorrectaException, SaldoInsuficienteException {
-
         if (!soportaCuenta(cuentaOrigen)) throw new CantidadIncorrectaException("Cuenta no compatible con PagoBizum");
-
         CuentaBizum cuenta = (CuentaBizum) cuentaOrigen;
         cuenta.retirar(cantidad);
-
-        this.comprobante = GeneradorComprobantes.generar("📱BIZUM", cantidad, cuenta.getDescripcionCompleta(), cuenta.getSaldo());
+        this.comprobante = GeneradorComprobantes.generar("BIZUM", cantidad, cuenta.getDescripcionCompleta(), cuenta.getSaldo());
     }
 
 
