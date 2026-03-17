@@ -92,6 +92,9 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
             case NINGUNO -> {
                 vista.cambiarColorModo(Color.GRAY);
                 vista.getLabelEstado().setText("Selecciona un modo");
+                vista.getBotonAceptar().setEnabled(false);
+                vista.getBotonBorrar().setEnabled(false);
+                vista.getBotonCancelar().setEnabled(false);
             }
             case AÑADIR -> {
                 vista.cambiarColorModo(Color.GREEN);
