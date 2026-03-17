@@ -10,18 +10,19 @@ package agenda.gui;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    public VentanaPrincipal() {
+        public VentanaPrincipal() {
         initComponents();
         setFrame();
     }
 
     private void setFrame() {
         setTitle("Agenda Telefónica");
-        // setSize(800, 500);  // Quitado, pack() lo ajusta mejor
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        labelEstado.setText("Selecciona un modo para empezar");
     }
-    
+
+    // ---------------- GETTERS ----------------
     public javax.swing.JButton getBotonAceptar() { return botonAceptar; }
     public javax.swing.JButton getBotonCancelar() { return botonCancelar; }
     public javax.swing.JButton getBotonBorrar() { return botonBorrar; }
@@ -37,6 +38,29 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public javax.swing.JTextField getTextTelefono() { return textTelefono; }
     public javax.swing.JLabel getLabelEstado() { return labelEstado; }
     public javax.swing.JLabel getLabelContadorContactos() { return labelContadorContactos; }
+    public javax.swing.JPanel getPanelFormulario() { return panelFormularioContacto; }
+
+    // Cambia el color del borde según modo
+    public void cambiarColorModo(java.awt.Color color) {
+        panelFormularioContacto.setBorder(
+            javax.swing.BorderFactory.createTitledBorder(
+                javax.swing.BorderFactory.createLineBorder(color, 3),
+                "Modo actual"
+            )
+        );
+    }
+
+    // Mostrar u ocultar campo teléfono
+    public void mostrarTelefono(boolean visible) {
+        labelTelefono.setVisible(visible);
+        textTelefono.setVisible(visible);
+    }
+
+    // 🔹 Mostrar/ocultar campo y label de nombre
+    public void mostrarCampoNombre(boolean visible) {
+        labelNombre.setVisible(visible);
+        textNombre.setVisible(visible);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

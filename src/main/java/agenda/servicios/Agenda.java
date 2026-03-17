@@ -1,22 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package agenda.servicios;
 
 import agenda.modelo.Contacto;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-/**
- *
- * @author delcenjo
- */
 public class Agenda {
-    
+
     private Map<String, Contacto> agenda;
 
     public Agenda() {
@@ -24,6 +12,11 @@ public class Agenda {
     }
 
     public boolean añadirContacto(String nombre, String telefono) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            return false;
+        }
+
+        nombre = nombre.trim();
 
         if (agenda.containsKey(nombre)) {
             return false;
@@ -31,27 +24,27 @@ public class Agenda {
 
         Contacto contacto = new Contacto(nombre, telefono);
         agenda.put(nombre, contacto);
-
         return true;
     }
 
     public Contacto buscarContacto(String nombre) {
-        return agenda.get(nombre);
+        if (nombre == null) return null;
+        return agenda.get(nombre.trim());
     }
 
     public boolean eliminarContacto(String nombre) {
-
-        if (!agenda.containsKey(nombre)) {
+        if (nombre == null || !agenda.containsKey(nombre.trim())) {
             return false;
         }
 
-        agenda.remove(nombre);
+        agenda.remove(nombre.trim());
         return true;
     }
 
     public boolean modificarContacto(String nombre, String nuevoTelefono) {
+        if (nombre == null) return false;
 
-        Contacto contacto = agenda.get(nombre);
+        Contacto contacto = agenda.get(nombre.trim());
 
         if (contacto == null) {
             return false;
@@ -62,7 +55,6 @@ public class Agenda {
     }
 
     public List<Contacto> listarContactos() {
-
         List<Contacto> lista = new ArrayList<>(agenda.values());
 
         lista.sort(Comparator.comparing(Contacto::getNombre));
@@ -75,7 +67,12 @@ public class Agenda {
     }
 
     public boolean existeContacto(String nombre) {
-        return agenda.containsKey(nombre);
+        if (nombre == null) return false;
+        return agenda.containsKey(nombre.trim());
     }
-    
+
+    // 🔥 EXTRA PRO (opcional)
+    public int tamaño() {
+        return agenda.size();
+    }
 }
