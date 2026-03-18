@@ -1,10 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package agenda.control;
 
 import agenda.gui.VentanaPrincipal;
 import agenda.modelo.Contacto;
 import agenda.servicios.Agenda;
 import agenda.validacion.TelefonoValidar;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 
+/**
+ *
+ * @author delcenjo
+ */
 public class ControlAgenda implements ActionListener, ListSelectionListener {
 
     private VentanaPrincipal vista;
@@ -29,7 +36,6 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
         this.vista = vista;
         this.modelo = modelo;
 
-        // Eventos
         vista.getBotonAceptar().addActionListener(this);
         vista.getBotonCancelar().addActionListener(this);
         vista.getBotonBorrar().addActionListener(this);
@@ -82,7 +88,7 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
         listaTemporal.clear();
         vista.getListaContactos().setListData(new String[]{});
         vista.mostrarTelefono(false);
-        vista.mostrarCampoNombre(false); // etiqueta y field desaparecen
+        vista.mostrarCampoNombre(false);
         vista.getTextNombre().setEnabled(false);
         vista.getTextTelefono().setEnabled(false);
         vista.getBotonAceptar().setEnabled(false);

@@ -1,27 +1,27 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package agenda.validacion;
 
+/**
+ *
+ * @author delcenjo
+ */
 public class TelefonoValidar {
 
     public static boolean esTelefonoValido(String telefono) {
-
         if (telefono == null) {
             return false;
         }
-
         telefono = telefono.trim();
-
-        // Debe tener exactamente 9 dígitos
         if (!telefono.matches("\\d{9}")) {
             return false;
         }
-
-        // Opcional (más realista en España)
-        // Los teléfonos suelen empezar por 6, 7, 8 o 9
         char primero = telefono.charAt(0);
         if (primero < '6' || primero > '9') {
             return false;
         }
-
         return true;
     }
 }

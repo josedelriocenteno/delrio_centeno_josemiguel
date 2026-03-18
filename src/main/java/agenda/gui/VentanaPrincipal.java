@@ -9,38 +9,83 @@ package agenda.gui;
  * @author delcenjo
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-
-        public VentanaPrincipal() {
+        
+    public VentanaPrincipal(){
         initComponents();
         setFrame();
     }
 
-    private void setFrame() {
+    private void setFrame(){
         setTitle("Agenda Telefónica");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         labelEstado.setText("Selecciona un modo para empezar");
     }
 
-    // ---------------- GETTERS ----------------
-    public javax.swing.JButton getBotonAceptar() { return botonAceptar; }
-    public javax.swing.JButton getBotonCancelar() { return botonCancelar; }
-    public javax.swing.JButton getBotonBorrar() { return botonBorrar; }
-    public javax.swing.JMenuItem getItemAñadir() { return itemAñadir; }
-    public javax.swing.JMenuItem getItemBuscar() { return itemBuscar; }
-    public javax.swing.JMenuItem getItemModificar() { return itemModificar; }
-    public javax.swing.JMenuItem getItemBorrar() { return itemBorrar; }
-    public javax.swing.JMenuItem getItemListar() { return itemListar; }
-    public javax.swing.JMenuItem getItemVaciar() { return itemVaciar; }
-    public javax.swing.JMenuItem getItemSalir() { return itemSalir; }
-    public javax.swing.JList<String> getListaContactos() { return listaContactos; }
-    public javax.swing.JTextField getTextNombre() { return textNombre; }
-    public javax.swing.JTextField getTextTelefono() { return textTelefono; }
-    public javax.swing.JLabel getLabelEstado() { return labelEstado; }
-    public javax.swing.JLabel getLabelContadorContactos() { return labelContadorContactos; }
-    public javax.swing.JPanel getPanelFormulario() { return panelFormularioContacto; }
+    public javax.swing.JButton getBotonAceptar(){
+        return botonAceptar;
+    }
+    
+    public javax.swing.JButton getBotonCancelar(){
+        return botonCancelar;
+    }
+    
+    public javax.swing.JButton getBotonBorrar(){
+        return botonBorrar;
+    }
+    
+    public javax.swing.JMenuItem getItemAñadir(){
+        return itemAñadir;
+    }
+    
+    public javax.swing.JMenuItem getItemBuscar(){
+        return itemBuscar;
+    }
+    
+    public javax.swing.JMenuItem getItemModificar(){
+        return itemModificar;
+    }
+    
+    public javax.swing.JMenuItem getItemBorrar(){
+        return itemBorrar;
+    }
+    
+    public javax.swing.JMenuItem getItemListar(){
+        return itemListar;
+    }
+    
+    public javax.swing.JMenuItem getItemVaciar(){
+        return itemVaciar;
+    }
+    
+    public javax.swing.JMenuItem getItemSalir(){
+        return itemSalir;
+    }
+    
+    public javax.swing.JList<String> getListaContactos(){
+        return listaContactos;
+    }
+    
+    public javax.swing.JTextField getTextNombre(){
+        return textNombre;
+    }
+    
+    public javax.swing.JTextField getTextTelefono(){
+        return textTelefono;
+    }
+    
+    public javax.swing.JLabel getLabelEstado(){
+        return labelEstado;
+    }
+    
+    public javax.swing.JLabel getLabelContadorContactos(){
+        return labelContadorContactos;
+    }
+    
+    public javax.swing.JPanel getPanelFormulario(){
+        return panelFormularioContacto;
+    }
 
-    // Cambia el color del borde según modo
     public void cambiarColorModo(java.awt.Color color) {
         panelFormularioContacto.setBorder(
             javax.swing.BorderFactory.createTitledBorder(
@@ -50,13 +95,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
     }
 
-    // Mostrar u ocultar campo teléfono
     public void mostrarTelefono(boolean visible) {
         labelTelefono.setVisible(visible);
         textTelefono.setVisible(visible);
     }
 
-    // 🔹 Mostrar/ocultar campo y label de nombre
     public void mostrarCampoNombre(boolean visible) {
         labelNombre.setVisible(visible);
         textNombre.setVisible(visible);
