@@ -27,7 +27,9 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
     private Agenda modelo;
     private Contacto seleccionado = null;
 
-    private enum Modo { NINGUNO, AÑADIR, BUSCAR, MODIFICAR, BORRAR, LISTAR, VACIAR }
+    private enum Modo {
+        NINGUNO, AÑADIR, BUSCAR, MODIFICAR, BORRAR, LISTAR, VACIAR
+    }
     private Modo modo = Modo.NINGUNO;
 
     private List<String> listaTemporal = new ArrayList<>();
@@ -55,16 +57,27 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
 
-        if (src == vista.getBotonAceptar()) ejecutarModo();
-        else if (src == vista.getBotonCancelar()) modoPorDefecto();
-        else if (src == vista.getBotonBorrar()) limpiarCampos();
-        else if (src == vista.getItemAñadir()) cambiarModo(Modo.AÑADIR);
-        else if (src == vista.getItemBuscar()) cambiarModo(Modo.BUSCAR);
-        else if (src == vista.getItemModificar()) cambiarModo(Modo.MODIFICAR);
-        else if (src == vista.getItemBorrar()) cambiarModo(Modo.BORRAR);
-        else if (src == vista.getItemListar()) cambiarModo(Modo.LISTAR);
-        else if (src == vista.getItemVaciar()) cambiarModo(Modo.VACIAR);
-        else if (src == vista.getItemSalir()) System.exit(0);
+        if (src == vista.getBotonAceptar()) {
+            ejecutarModo();
+        } else if (src == vista.getBotonCancelar()) {
+            modoPorDefecto();
+        } else if (src == vista.getBotonBorrar()) {
+            limpiarCampos();
+        } else if (src == vista.getItemAñadir()) {
+            cambiarModo(Modo.AÑADIR);
+        } else if (src == vista.getItemBuscar()) {
+            cambiarModo(Modo.BUSCAR);
+        } else if (src == vista.getItemModificar()) {
+            cambiarModo(Modo.MODIFICAR);
+        } else if (src == vista.getItemBorrar()) {
+            cambiarModo(Modo.BORRAR);
+        } else if (src == vista.getItemListar()) {
+            cambiarModo(Modo.LISTAR);
+        } else if (src == vista.getItemVaciar()) {
+            cambiarModo(Modo.VACIAR);
+        } else if (src == vista.getItemSalir()) {
+            System.exit(0);
+        }
     }
 
     private void cambiarModo(Modo nuevoModo) {
@@ -74,12 +87,20 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
 
     private void ejecutarModo() {
         switch (modo) {
-            case AÑADIR -> añadir();
-            case BUSCAR -> buscar();
-            case MODIFICAR -> modificar();
-            case LISTAR -> actualizarLista();
-            case VACIAR -> vaciar();
-            default -> JOptionPane.showMessageDialog(vista, "Selecciona un modo primero", "Aviso", JOptionPane.WARNING_MESSAGE);
+            case AÑADIR ->
+                añadir();
+            case BUSCAR ->
+                buscar();
+            case MODIFICAR ->
+                modificar();
+            case BORRAR ->
+                eliminarContacto();
+            case LISTAR ->
+                actualizarLista();
+            case VACIAR ->
+                vaciar();
+            default ->
+                JOptionPane.showMessageDialog(vista, "Selecciona un modo primero", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -130,7 +151,7 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
             }
             case BORRAR -> {
                 vista.cambiarColorModo(Color.RED);
-                vista.getLabelEstado().setText("Modo BORRAR: selecciona contacto para eliminar");
+                vista.getLabelEstado().setText("Modo BORRAR: selecciona contacto y pulsa Aceptar");
                 actualizarLista();
             }
             case LISTAR -> {
@@ -140,7 +161,7 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
             }
             case VACIAR -> {
                 vista.cambiarColorModo(Color.RED);
-                vista.getLabelEstado().setText("⚠ Modo VACIAR");
+                vista.getLabelEstado().setText("⚠ Modo VACIAR: pulsa Aceptar para borrar todos");
                 vista.getBotonAceptar().setEnabled(true);
             }
         }
@@ -212,11 +233,16 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
             JOptionPane.showMessageDialog(vista, "Selecciona un contacto de la lista", "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        int confirm = JOptionPane.showConfirmDialog(vista,
+
+        int confirm = JOptionPane.showConfirmDialog(
+                vista,
                 "¿Seguro que deseas eliminar " + seleccionado.getNombre() + "?",
                 "Confirmar",
-                JOptionPane.YES_NO_OPTION);
-        if (confirm != JOptionPane.YES_OPTION) return;
+                JOptionPane.YES_NO_OPTION
+        );
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         modelo.eliminarContacto(seleccionado.getNombre());
         JOptionPane.showMessageDialog(vista, "Contacto eliminado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -225,12 +251,19 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
     }
 
     private void vaciar() {
-        int confirm = JOptionPane.showConfirmDialog(vista, "¿Deseas vaciar toda la agenda?", "Confirmar", JOptionPane.YES_NO_OPTION);
-        if (confirm != JOptionPane.YES_OPTION) return;
+        int confirm = JOptionPane.showConfirmDialog(
+                vista,
+                "¿Deseas vaciar toda la agenda y borrar todos los contactos?",
+                "Confirmar vaciado",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         modelo.vaciarAgenda();
-        JOptionPane.showMessageDialog(vista, "Agenda vaciada", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         actualizarLista();
+        JOptionPane.showMessageDialog(vista, "Agenda vaciada", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         modoPorDefecto();
     }
 
@@ -248,7 +281,11 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
     private void actualizarLista() {
         listaTemporal.clear();
         List<Contacto> lista = modelo.listarContactos();
-        for (Contacto c : lista) listaTemporal.add(c.toString());
+
+        for (Contacto c : lista) {
+            listaTemporal.add(c.toString());
+        }
+
         vista.getListaContactos().setListData(listaTemporal.toArray(new String[0]));
         vista.getLabelContadorContactos().setText("Total: " + lista.size());
     }
