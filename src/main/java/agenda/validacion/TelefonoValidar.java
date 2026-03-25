@@ -11,17 +11,10 @@ package agenda.validacion;
 public class TelefonoValidar {
 
     public static boolean esTelefonoValido(String telefono) {
-        if (telefono == null) {
-            return false;
-        }
+        if (telefono == null) return false;
         telefono = telefono.trim();
-        if (!telefono.matches("\\d{9}")) {
-            return false;
-        }
+        if (!telefono.matches("\\d{9}")) return false;
         char primero = telefono.charAt(0);
-        if (primero < '6' || primero > '9') {
-            return false;
-        }
-        return true;
+        return !(primero < '6' || primero > '9');
     }
 }

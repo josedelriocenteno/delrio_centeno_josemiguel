@@ -88,11 +88,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     public void cambiarColorModo(java.awt.Color color) {
         panelFormularioContacto.setBorder(
-            javax.swing.BorderFactory.createTitledBorder(
-                javax.swing.BorderFactory.createLineBorder(color, 3),
-                "Modo actual"
-            )
-        );
+            javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(color, 3),
+                    "Modo actual"));
     }
 
     public void mostrarTelefono(boolean visible) {

@@ -100,7 +100,7 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
             case VACIAR ->
                 vaciar();
             default ->
-                JOptionPane.showMessageDialog(vista, "Selecciona un modo primero", "Aviso", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(vista, "Seleciona un modo primero", "Aviso", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -125,7 +125,7 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
             }
             case AÑADIR -> {
                 vista.cambiarColorModo(Color.GREEN);
-                vista.getLabelEstado().setText("Modo AÑADIR: ingresa nombre y teléfono");
+                vista.getLabelEstado().setText("Modo AÑADIR: ingrea nombre y teléfono");
                 vista.mostrarCampoNombre(true);
                 vista.mostrarTelefono(true);
                 vista.getTextNombre().setEnabled(true);
@@ -161,7 +161,7 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
             }
             case VACIAR -> {
                 vista.cambiarColorModo(Color.RED);
-                vista.getLabelEstado().setText("⚠ Modo VACIAR: pulsa Aceptar para borrar todos");
+                vista.getLabelEstado().setText("Modo VACIAR: pulsa Aceptar para borrar todos");
                 vista.getBotonAceptar().setEnabled(true);
             }
         }
@@ -171,11 +171,11 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
         String nombre = vista.getTextNombre().getText().trim();
         String tel = vista.getTextTelefono().getText().trim();
         if (nombre.isEmpty()) {
-            JOptionPane.showMessageDialog(vista, "Nombre vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(vista, "Nombre vacio", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (!TelefonoValidar.esTelefonoValido(tel)) {
-            JOptionPane.showMessageDialog(vista, "Teléfono inválido", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(vista, "Teléfono invalido", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (modelo.añadirContacto(nombre, tel)) {
@@ -199,7 +199,7 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
             seleccionado = c;
             listaTemporal.add(c.toString());
             vista.getListaContactos().setListData(listaTemporal.toArray(new String[0]));
-            vista.getLabelEstado().setText("✓ Encontrado");
+            vista.getLabelEstado().setText("Encontrado");
         } else {
             vista.getListaContactos().setListData(new String[]{});
             vista.getLabelEstado().setText("No encontrado");
@@ -214,7 +214,7 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
 
         String nuevoTelefono = vista.getTextTelefono().getText().trim();
         if (!TelefonoValidar.esTelefonoValido(nuevoTelefono)) {
-            JOptionPane.showMessageDialog(vista, "Teléfono inválido", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(vista, "Teléfono invalido", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -245,21 +245,15 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
         }
 
         modelo.eliminarContacto(seleccionado.getNombre());
-        JOptionPane.showMessageDialog(vista, "Contacto eliminado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(vista, "Contacto eliminado", "Exito", JOptionPane.INFORMATION_MESSAGE);
         actualizarLista();
         limpiarCampos();
     }
 
     private void vaciar() {
-        int confirm = JOptionPane.showConfirmDialog(
-                vista,
-                "¿Deseas vaciar toda la agenda y borrar todos los contactos?",
-                "Confirmar vaciado",
-                JOptionPane.YES_NO_OPTION
-        );
-        if (confirm != JOptionPane.YES_OPTION) {
-            return;
-        }
+        int confirm = JOptionPane.showConfirmDialog(vista, "¿Deseas vaciar toda la agenda y borrar todos los contactos?",
+                "Confirmar vaciado",JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) return;
 
         modelo.vaciarAgenda();
         actualizarLista();
@@ -300,12 +294,10 @@ public class ControlAgenda implements ActionListener, ListSelectionListener {
                 Contacto c = modelo.buscarContacto(nombre);
                 if (c != null) {
                     seleccionado = c;
-
                     if (modo == Modo.BORRAR) {
                         int confirm = JOptionPane.showConfirmDialog(vista,
                                 "¿Seguro que deseas eliminar " + c.getNombre() + "?",
-                                "Confirmar",
-                                JOptionPane.YES_NO_OPTION);
+                                "Confirmar", JOptionPane.YES_NO_OPTION);
                         if (confirm == JOptionPane.YES_OPTION) {
                             modelo.eliminarContacto(c.getNombre());
                             actualizarLista();

@@ -7,7 +7,6 @@ package agenda.main;
 import agenda.control.ControlAgenda;
 import agenda.gui.VentanaPrincipal;
 import agenda.servicios.Agenda;
-
 import javax.swing.SwingUtilities;
 
 /**
