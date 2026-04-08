@@ -28,7 +28,7 @@ public class Agenda {
             return false;
         }
         Contacto contacto = new Contacto(nombre, telefono);
-        agenda.put(nombre, contacto);
+        agenda.put(nombre, contacto); 
         return true;
     }
 
