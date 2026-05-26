@@ -27,8 +27,9 @@ public class CopiadorArchivos extends javax.swing.JFrame {
      */
     public CopiadorArchivos() {
         initComponents();
+        setSize(610, 340); // Establecer tamaño fijo para la ventana
         setLocationRelativeTo(null);
-        // Instanciamos la clase que se encargará de toda la lógica "sucia"
+        // Instanciamos la clase que se encargará de toda la lógica
         gestorArchivos = new GestorArchivos();
     }
 
@@ -41,170 +42,88 @@ public class CopiadorArchivos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtArchivoOrigen = new javax.swing.JTextField();
+        btnSeleccionarArchivo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtCarpetaDestino = new javax.swing.JTextField();
-        btnSeleccionarArchivo = new javax.swing.JButton();
         btnSeleccionarDestino = new javax.swing.JButton();
-        btnCopiar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
         lblEstado = new javax.swing.JLabel();
+        btnCopiar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Copiador de Archivos Multimedia - José Miguel del Río Centeno");
         setResizable(false);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(
-                javax.swing.BorderFactory.createEtchedBorder(),
-                "Copia de archivos multimedia",
-                javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
-                javax.swing.border.TitledBorder.DEFAULT_POSITION,
-                new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Copiador de Archivos Multimedia");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 560, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setText("Formatos: Imágenes | Audio | Vídeo");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 560, 20));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         jLabel2.setText("Archivo origen:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 120, 30));
 
         txtArchivoOrigen.setEditable(false);
-        txtArchivoOrigen.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtArchivoOrigen.setToolTipText("Ruta del archivo seleccionado");
+        getContentPane().add(txtArchivoOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 280, 30));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jLabel3.setText("Carpeta destino:");
-
-        txtCarpetaDestino.setEditable(false);
-        txtCarpetaDestino.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        txtCarpetaDestino.setToolTipText("Ruta de la carpeta destino");
-
-        btnSeleccionarArchivo.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnSeleccionarArchivo.setText("Seleccionar archivo...");
-        btnSeleccionarArchivo.setToolTipText("Seleccionar imagen, audio o vídeo");
+        btnSeleccionarArchivo.setText("Seleccionar...");
         btnSeleccionarArchivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarArchivoActionPerformed(evt);
             }
         });
+        getContentPane().add(btnSeleccionarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 150, 30));
 
-        btnSeleccionarDestino.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        btnSeleccionarDestino.setText("Seleccionar destino...");
-        btnSeleccionarDestino.setToolTipText("Seleccionar carpeta de destino");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel3.setText("Carpeta destino:");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 120, 30));
+
+        txtCarpetaDestino.setEditable(false);
+        getContentPane().add(txtCarpetaDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 280, 30));
+
+        btnSeleccionarDestino.setText("Seleccionar...");
         btnSeleccionarDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarDestinoActionPerformed(evt);
             }
         });
+        getContentPane().add(btnSeleccionarDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, 150, 30));
+
+        jProgressBar1.setStringPainted(true);
+        getContentPane().add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 560, 25));
+
+        lblEstado.setForeground(new java.awt.Color(0, 102, 153));
+        lblEstado.setText("Estado: Esperando selección...");
+        getContentPane().add(lblEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 560, 20));
 
         btnCopiar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCopiar.setText("Copiar archivo");
-        btnCopiar.setToolTipText("Realizar la copia del archivo");
+        btnCopiar.setText("Copiar");
         btnCopiar.setEnabled(false);
         btnCopiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCopiarActionPerformed(evt);
             }
         });
+        getContentPane().add(btnCopiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 250, 120, 40));
 
-        btnSalir.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         btnSalir.setText("Salir");
-        btnSalir.setToolTipText("Cerrar la aplicación");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("Formatos: Imágenes (jpg, png, gif, bmp) | Audio (mp3, wav, flac, ogg) | Vídeo (mp4, avi, mkv, mov)");
-
-        jProgressBar1.setStringPainted(true);
-
-        lblEstado.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lblEstado.setForeground(new java.awt.Color(0, 102, 153));
-        lblEstado.setText("Estado: Esperando selección de archivo...");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtArchivoOrigen)
-                            .addComponent(txtCarpetaDestino))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnSeleccionarArchivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSeleccionarDestino, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCopiar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtArchivoOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSeleccionarArchivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtCarpetaDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSeleccionarDestino))
-                .addGap(18, 18, 18)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblEstado)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalir)
-                    .addComponent(btnCopiar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 120, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -335,14 +254,13 @@ public class CopiadorArchivos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCopiar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JButton btnSeleccionarArchivo;
     private javax.swing.JButton btnSeleccionarDestino;
-    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JTextField txtArchivoOrigen;
